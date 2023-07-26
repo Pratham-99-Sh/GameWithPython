@@ -2,11 +2,11 @@ import pygame
 import time
 import random
 
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My First Game")
 
-BG = pygame.image.load('bg.jpeg')
+BG = pygame.transform.scale(pygame.image.load('bg.jpeg'), (WIDTH, HEIGHT))
 
 def draw():
     # blit is used to draw an image or surface to screen
