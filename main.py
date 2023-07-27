@@ -31,4 +31,3 @@ def main():
 # since we want to run the game only when this file is run and now when say it is imported``
 if __name__ == "__main__":
     main()
-    # video tutorial link : https://www.youtube.com/watch?v=waY3LfJhQLY , time : 12:23
