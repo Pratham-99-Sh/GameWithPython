@@ -29,7 +29,7 @@ def draw(player, ellapsed_time, stars):
 
     # we did it after player to make stars appear above player
     for star in stars:
-        pygame.draw.rect(WIN, (0, 255, 0), star)
+        pygame.draw.rect(WIN, (255, 255, 255), star)
 
     pygame.display.update()
 
@@ -84,7 +84,7 @@ def main():
                 break
 
         if hit:
-            lost_text = FONT.render("You Lost!", 1, (255, 255, 255))
+            lost_text = FONT.render("You Lost!", 1, (0, 255, 255))
             WIN.blit(lost_text, (WIDTH / 2 - lost_text.get_width() / 2, HEIGHT / 2 - lost_text.get_height() / 2))
             pygame.display.update()
             pygame.time.delay(4000)
