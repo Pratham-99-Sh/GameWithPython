@@ -3,6 +3,9 @@ import time
 import random
 
 pygame.font.init() # initialize font module
+pygame.mixer.init() # initialize mixer module
+
+crash_sound = pygame.mixer.Sound("crash.wav")
 
 WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -84,6 +87,7 @@ def main():
                 break
 
         if hit:
+            crash_sound.play()
             lost_text = FONT.render("You Lost!", 1, (0, 255, 255))
             WIN.blit(lost_text, (WIDTH / 2 - lost_text.get_width() / 2, HEIGHT / 2 - lost_text.get_height() / 2))
             pygame.display.update()
