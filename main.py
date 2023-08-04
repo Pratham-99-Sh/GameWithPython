@@ -37,6 +37,13 @@ def draw(player, ellapsed_time, stars):
 
     pygame.display.update()
 
+def draw_main_menu():
+    # to make main menu screen
+    WIN.blit(BG, (0, 0))
+    start_text = FONT.render("Press SPACE to start", 1, (255, 255, 255))
+    WIN.blit(start_text, (WIDTH / 2 - start_text.get_width() / 2, HEIGHT / 2 - start_text.get_height() / 2))
+    pygame.display.update()
+
 def draw_pause_screen():
     # to make pause screen
     s = pygame.Surface((WIDTH,HEIGHT), pygame.SRCALPHA)   # per-pixel alpha
@@ -47,7 +54,7 @@ def draw_pause_screen():
     pygame.display.update()
 
 def main():
-    run = True
+    run = False
     pause = False  # variable for pausing and resuming the game
 
     # (x, y, width, height)
@@ -63,6 +70,20 @@ def main():
 
     stars = [] # list of all stars
     hit = False
+
+    while run==False:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        draw_main_menu()
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            run = True
+            time.sleep(0.2)
+            break
 
     while run:
         star_count += clock.tick(60) # 60 fps for this while loop and it returns the time since the last tick
