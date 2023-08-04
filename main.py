@@ -8,6 +8,11 @@ pygame.mixer.init() # initialize mixer module
 # pygame.mixer.music.load("music.mp3") # load music file
 crash_sound = pygame.mixer.Sound("crash.wav")
 
+# background music
+pygame.mixer.music.load("bg_music.mp3")
+pygame.mixer.music.set_volume(0.2) # set volume of music
+pygame.mixer.music.play(-1) # -1 to play the music in a loop
+
 WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My First Game")
