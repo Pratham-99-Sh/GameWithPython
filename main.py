@@ -6,10 +6,10 @@ pygame.font.init() # initialize font module
 pygame.mixer.init() # initialize mixer module
 
 # pygame.mixer.music.load("music.mp3") # load music file
-crash_sound = pygame.mixer.Sound("crash.wav")
+crash_sound = pygame.mixer.Sound("sounds/crash.wav")
 
 # background music
-pygame.mixer.music.load("bg_music.mp3")
+pygame.mixer.music.load("sounds/bg_music.mp3")
 pygame.mixer.music.set_volume(0.2) # set volume of music
 pygame.mixer.music.play(-1) # -1 to play the music in a loop
 
@@ -17,12 +17,16 @@ WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My First Game")
 
-BG = pygame.transform.scale(pygame.image.load('bg.jpeg'), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load('images/bg.jpeg'), (WIDTH, HEIGHT))
 
-PLAYER_WIDTH, PLAYER_HEIGHT = 40, 60 
+PLAYER_WIDTH, PLAYER_HEIGHT = 30, 50 
 PLAYER_VEL = 5
 STAR_WIDTH, STAR_HEIGHT = 10, 20
 STAR_VEL = 3
+
+SHIP = pygame.transform.scale(pygame.image.load('images/ship.png'), (PLAYER_WIDTH + 26, PLAYER_HEIGHT + 25))
+STAR_IMG = pygame.transform.scale(pygame.image.load('images/star.png'), (STAR_WIDTH + 60, STAR_HEIGHT + 30))
+CRASHED_SHIP = pygame.transform.scale(pygame.image.load('images/crash.png'), (PLAYER_WIDTH + 26, PLAYER_HEIGHT + 25))
 
 FONT = pygame.font.SysFont('comicsans', 30)
 
@@ -34,11 +38,15 @@ def draw(player, ellapsed_time, stars):
     WIN.blit(time_text, (10, 10)) # (text, (coordinate to place top left corner of text))
 
     # (surface, color, rect) where color = string or (r, g, b)
-    pygame.draw.rect(WIN, (255, 0, 0), player)
+    #pygame.draw.rect(WIN, (255, 0, 0), player)
+    
+    # to draw the ship
+    WIN.blit(SHIP, (player.x - 13, player.y - 20))
 
     # we did it after player to make stars appear above player
     for star in stars:
-        pygame.draw.rect(WIN, (255, 255, 255), star)
+        #pygame.draw.rect(WIN, (255, 255, 255), star)
+        WIN.blit(STAR_IMG, (star.x - 30, star.y - 25))
 
     pygame.display.update()
 
@@ -63,7 +71,7 @@ def main():
     pause = False  # variable for pausing and resuming the game
 
     # (x, y, width, height)
-    player = pygame.Rect(200, HEIGHT - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT)
+    player = pygame.Rect(200, HEIGHT - PLAYER_HEIGHT -15, PLAYER_WIDTH, PLAYER_HEIGHT)
     clock = pygame.time.Clock()
     start_time = time.time()
     ellapsed_time = 0
@@ -141,6 +149,7 @@ def main():
         if hit:
             crash_sound.play()
             lost_text = FONT.render("You Lost!", 1, (0, 255, 255))
+            WIN.blit(CRASHED_SHIP, (player.x - 13, player.y - 20))
             WIN.blit(lost_text, (WIDTH / 2 - lost_text.get_width() / 2, HEIGHT / 2 - lost_text.get_height() / 2))
             pygame.display.update()
             pygame.time.delay(4000)
